@@ -150,11 +150,3 @@ python evaluation/extra_metrics.py --decode-dir $DECODEDIR
 ```TEXTDATADIR``` is the directory that contains the text files of your dataset.
 
 
-## Binaries
-
-Each instance read from the input files (source and target, etc.) is given an id (basically its line number in the file). [Here]() is the list of ids that are excluded in the the binary we used to train the models in the paper. (See Appendix in the paper for more details).
-
-[Here]() you will find the binaries we used. We place binaries in the *fairseq/data-bin/* directory.
-
-[Here]() you will find the created topic models for each of the dataset.
-
