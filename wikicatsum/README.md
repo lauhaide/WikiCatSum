@@ -4,7 +4,7 @@ Abstractive Summarisation, generating Wikipedia lead sections.
 
 ## Dataset
 
-The WikiCatSum dataset can be downloaded from [this]() repository. In the paper we used the *Company*, *Film*, and *Animal* domains.
+The WikiCatSum dataset can be downloaded from [this](https://datashare.is.ed.ac.uk/handle/10283/3353) repository. In the paper we used the *Company*, *Film*, and *Animal* domains.
 
 We hope to extract additional domains: Athlete, Building, Musical-Work
 
