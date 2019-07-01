@@ -1,4 +1,4 @@
-This is the code for the paper [Generating Summaries with Topic Guidance and Structured Convolutional Decoders]() by Laura Perez-Beltrachini, Yang Liu and Mirella Lapata.
+This is the code for the paper [Generating Summaries with Topic Guidance and Structured Convolutional Decoders](https://arxiv.org/pdf/1906.04687.pdf) by Laura Perez-Beltrachini, Yang Liu and Mirella Lapata.
 
 
 In this repository we include a link to our WikiCatSum dataset and code for our ConvS2D model. Our code extends an earlier copy of [Facebook AI Research Sequence-to-Sequence Toolkit](https://github.com/pytorch/fairseq) with a sentence aware Structured Convolutional Decoder.
@@ -10,7 +10,7 @@ Torch 0.4.0
 
 ## WikiCatSum dataset
 
-The WikiCatSum dataset is available in [this](https://datashare.is.ed.ac.uk/handle/10283/3353) repository.
+The WikiCatSum dataset is available in [this](https://datashare.is.ed.ac.uk/handle/10283/3368) repository.
 
 Related scripts are available in the *wikicatsum/* directory.
 
@@ -60,16 +60,16 @@ CUDA_VISIBLE_DEVICES=$GPUID python train.py data-bin/$DATADIR --lr 0.25 --clip-n
 ##### ConvS2D
 
 ```
-CUDA_VISIBLE_DEVICES=$GPUID python my_train.py data-bin/$DATADIR --lr 0.25 --clip-norm 0.1 --dropout 0.2 --max-tokens 4000 --arch fconv_fatte_nokey_wikicatsum --save-dir checkpoints/$MODELNAME --skip-invalid-size-inputs-valid-test --no-progress-bar --task wikicatsum --annotations --max-source-positions $MAX_SRC_POSITIONS --max-target-positions 15 --max-tgt-sentence-length $MAX_TGT_SENT_LEN --criterion cross_entropy --num-topics $NUMKEYS --flatenc --hidemb --normpos 1> 'checkpoints/'$MODELNAME'/train.log'
+CUDA_VISIBLE_DEVICES=$GPUID python my_train.py data-bin/$DATADIR --lr 0.25 --clip-norm 0.1 --dropout 0.2 --max-tokens 4000 --arch fconv_fatte_nokey_wikicatsum --save-dir checkpoints/$MODELNAME --skip-invalid-size-inputs-valid-test --no-progress-bar --task wikicatsum --annotations --max-source-positions $MAX_SRC_POSITIONS --max-target-positions 15 --max-tgt-sentence-length $MAX_TGT_SENT_LEN --criterion cross_entropy --num-topics $NUMKEYS --flatenc --hidemb --normpos --flatdata data-bin/$FLATDATADIR 1> 'checkpoints/'$MODELNAME'/train.log'
 ```
 
-```--num-topics``` tells the number of topics in the dataset, this is not used by the encoder-decoder model but just by the data-loader. 
-
+```--num-topics``` tells the number of topics in the dataset, this is not used by the encoder-decoder model but just by the data-loader.  
+```----flatdata``` gives the path to the binaries with tensors of ids are a single sequence.
 
 ##### ConvS2D+T
 
 ```
-CUDA_VISIBLE_DEVICES=$GPUID python my_train.py data-bin/$DATADIR --lr 0.25 --clip-norm 0.1 --dropout 0.2 --max-tokens 4000 --arch fconv_fatte_wikicatsum --save-dir checkpoints/$MODELNAME --skip-invalid-size-inputs-valid-test --no-progress-bar --task wikicatsum --annotations --max-source-positions $MAX_SRC_POSITIONS --max-target-positions 15 --max-tgt-sentence-length $MAX_TGT_SENT_LEN --criterion cross_entropy_kpred_1t --num-topics $NUMKEYS --outindices checkpoints/$IDXEXCLDIR/ignoredIndices.log --flatenc --hidemb --normpos --lambda-keyloss 1 1> 'checkpoints/'$MODELNAME'/train.log'
+CUDA_VISIBLE_DEVICES=$GPUID python my_train.py data-bin/$DATADIR --lr 0.25 --clip-norm 0.1 --dropout 0.2 --max-tokens 4000 --arch fconv_fatte_wikicatsum --save-dir checkpoints/$MODELNAME --skip-invalid-size-inputs-valid-test --no-progress-bar --task wikicatsum --annotations --max-source-positions $MAX_SRC_POSITIONS --max-target-positions 15 --max-tgt-sentence-length $MAX_TGT_SENT_LEN --criterion cross_entropy_kpred_1t --num-topics $NUMKEYS --outindices checkpoints/$IDXEXCLDIR/ignoredIndices.log --flatenc --flatdata data-bin/$FLATDATADIR --hidemb --normpos --lambda-keyloss 1 1> 'checkpoints/'$MODELNAME'/train.log'
 ```
 
 
@@ -147,6 +147,6 @@ export DATADIR=$TEXTDATADIR
 python evaluation/extra_metrics.py --decode-dir $DECODEDIR
 ```
 
-```TEXTDATADIR``` is the directory that contains the text files of your dataset.
+```TEXTDATADIR``` is the directory that contains source (.src) and reference (.tgt) text files of the dataset.
 
 
