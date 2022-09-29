@@ -10,7 +10,7 @@ Torch 0.4.0
 
 ## WikiCatSum dataset
 
-The WikiCatSum dataset is available in [this](https://datashare.is.ed.ac.uk/handle/10283/3368) repository.
+The WikiCatSum dataset is available in [this](https://datashare.is.ed.ac.uk/handle/10283/3368) repository and also on HuggingFace datasets (follow this [link](https://huggingface.co/datasets/GEM/wiki_cat_sum)).
 
 Related scripts are available in the *wikicatsum/* directory.
 
